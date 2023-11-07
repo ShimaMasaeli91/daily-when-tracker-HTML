@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily When Tracker</title>
+    <link href="create.css" rel="stylesheet" />
+    <script src="create.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="main-header">DAILY WHEN TRACKER</h1>
+      <form id="create-form">
+        <div>
+          <label class="label">What am I doing?</label>
+          <input
+            class="first-input"
+            type="text"
+            placeholder="type here..."
+            name="title"
+          />
+        </div>
+        <div>
+          <label class="label">How mentally alert do I feel?</label>
+          <select name="alertScore">
+            <option value="">Select an option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <div>
+          <label class="label">How energetic do I feel?</label>
+          <select name="energeticScore">
+            <option value="">Select an option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <button class="button" type="submit" data-button>Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

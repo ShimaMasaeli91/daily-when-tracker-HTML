@@ -52,3 +52,17 @@ select::placeholder {
   justify-content: center;
   cursor: pointer;
 }
+.hidden {
+  display: none;
+}
+.success-message,
+.failure-message {
+  color: #37b24d;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 50px;
+  /* font-weight: bold; */
+}
+.failure-message {
+  color: #f03e3e;
+}

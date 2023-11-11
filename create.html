@@ -22,8 +22,8 @@
         </div>
         <div>
           <label class="label">How mentally alert do I feel?</label>
-          <select name="alertScore">
-            <option value="">Select an option</option>
+          <select name="alertScore" required>
+            <option value="" selected>Select an option</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -38,8 +38,8 @@
         </div>
         <div>
           <label class="label">How energetic do I feel?</label>
-          <select name="energeticScore">
-            <option value="">Select an option</option>
+          <select name="energeticScore" required>
+            <option value="" selected>Select an option</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -52,15 +52,20 @@
             <option value="10">10</option>
           </select>
         </div>
-        <button class="button" type="submit" data-button>Submit</button>
+        <button class="button" type="submit" >Submit</button>
+
+        
       </form>
-      <div class="success-message hidden" data-success>
+      <div class="success-message hidden" id="success-message">
         Form submitted successfully!
       </div>
-      <div class="failure-message hidden" data-failure>
-        Form submission failed. Please fill in all required fields. Refresh the
-        page and fill all the fields again.
+      <!-- TODO: Unexpected Error -->
+      <div class="unexpected-error hidden" id="unexpected-message">
+        An unexpected error occured.
       </div>
-    </div>
+      <!-- TODO: Validation Error -->
+      <div class="failure-message hidden" id="failure-message">
+        Form submission failed. Please fill all required fields.
+      </div>
   </body>
 </html>

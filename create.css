@@ -56,13 +56,15 @@ select::placeholder {
   display: none;
 }
 .success-message,
-.failure-message {
+.failure-message,
+.unexpected-error {
   color: #37b24d;
   font-size: 36px;
   text-align: center;
   margin-top: 50px;
   /* font-weight: bold; */
 }
-.failure-message {
+.failure-message,
+.unexpected-error {
   color: #f03e3e;
 }

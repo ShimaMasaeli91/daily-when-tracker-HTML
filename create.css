@@ -52,6 +52,13 @@ select::placeholder {
   justify-content: center;
   cursor: pointer;
 }
+.button:hover {
+  border: 1px solid #1098ad;
+  color: #1098ad;
+  font-weight: bold;
+  background-color: #fff;
+  transition: 0.2s;
+}
 .hidden {
   display: none;
 }

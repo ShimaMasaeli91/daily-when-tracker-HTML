@@ -14,7 +14,7 @@ form.addEventListener("submit", async (e) => {
   callCreateApi(stringObject);
 });
 
-// We check with reqired attributes
+// We check with required attributes
 /*
 function validateForm() {
   // Check if all required form inputs are filled in.

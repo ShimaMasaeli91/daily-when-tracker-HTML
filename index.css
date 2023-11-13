@@ -1,0 +1,101 @@
+/*
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #343a40;
+}
+body {
+  font-family: "Inter", sans-serif;
+}
+header {
+  height: 10%;
+  width: 100%;
+  background-color: #288690;
+  color: #fff;
+  font-size: 30px;
+  padding: 20px;
+}
+.container {
+  width: 90%;
+  margin: 10vh auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #1098ad;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+
+  padding: 5px;
+  text-align: center;
+}
+
+th {
+  text-align: center;
+  color: #fff;
+}
+
+tbody {
+  background-color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #eee;
+}
+
+thead > tr:hover {
+  background-color: #22b8cf;
+}
+.pagination {
+  margin: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#prevPageButton,
+#currentPageButton,
+#nextPageButton {
+  border: none;
+  background-color: #1098ad;
+  color: #fff;
+  width: 130px;
+  height: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#prevPageButton:hover,
+#currentPageButton:hover,
+#nextPageButton:hover {
+  border: 1px solid #1098ad;
+  color: #1098ad;
+  font-weight: bold;
+  background-color: #fff;
+  transition: 0.2s;
+}

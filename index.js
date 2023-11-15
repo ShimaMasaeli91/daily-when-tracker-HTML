@@ -1,85 +1,152 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Implement next page button click event handler
+  let currentPage = 1; //to keep track of the current page number for pagination. It is initially set to 1, indicating the first page
+  let chart; // it is declared as a global variable outside the event listener function because we want to initialize the chart variable outside of any specific event and be able to access it in both the loadPage and loadChart functions
 
-  let currentPage = 1;
+  const nextPageButton = document.getElementById("nextPageButton");
+  const prevPageButton = document.getElementById("prevPageButton");
+  const filterButton = document.getElementById("filterButton");
+
   // Load the first page of data
   loadPage(currentPage);
 
-  const nextPageButton = document.getElementById("nextPageButton");
   nextPageButton.addEventListener("click", () => {
-    let page = parseInt(nextPageButton.dataset.page);
-
-    loadPage(page);
-    // if (currentPage > 1) {
-    //   currentPage++;
-    //   loadPage(currentPage);
-    // }
+    currentPage++;
+    loadPage(currentPage);
   });
 
-  // Implement previous page button click event handler
-  const prevPageButton = document.getElementById("prevPageButton");
   prevPageButton.addEventListener("click", () => {
-    let page = parseInt(prevPageButton.dataset.page);
-    loadPage(page);
-    // if (currentPage > 1) {
-    //   currentPage--;
-    //   loadPage(currentPage);
-    // }
+    if (currentPage > 1) {
+      currentPage--;
+      loadPage(currentPage);
+    }
   });
-});
 
-function loadPage(pageNumber) {
-  const tableBody = document.getElementById("tableBody");
+  filterButton.addEventListener("click", () => {
+    const selectedDate = document.getElementById("dateFilter").value;
+    loadChart(selectedDate);
+  });
 
-  const url = `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks?page=${pageNumber}`;
+  function loadPage(pageNumber) {
+    const tableBody = document.getElementById("tableBody");
+    const chartCanvas = document.getElementById("chart");
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      tableBody.innerHTML = "";
-      // Process the received data
-      for (let i = 0; i < data["hydra:member"].length; i++) {
-        const row = document.createElement("tr");
-        const rowNumber = document.createElement("td");
-        const date = document.createElement("td");
-        const title = document.createElement("td");
-        const alert_score = document.createElement("td");
-        const energetic_score = document.createElement("td");
+    const tableUrl = `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks?page=${pageNumber}`;
 
-        rowNumber.textContent = (pageNumber - 1) * 30 + i + 1;
-        date.textContent = data["hydra:member"][i].date;
-        title.textContent = data["hydra:member"][i].title;
-        alert_score.textContent = data["hydra:member"][i].alert_score;
-        energetic_score.textContent = data["hydra:member"][i].energetic_score;
+    fetch(tableUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        tableBody.innerHTML = "";
 
-        row.appendChild(rowNumber);
-        row.appendChild(date);
-        row.appendChild(title);
-        row.appendChild(alert_score);
-        row.appendChild(energetic_score);
+        for (let i = 0; i < data["hydra:member"].length; i++) {
+          const row = document.createElement("tr");
+          const rowNumber = document.createElement("td");
+          const date = document.createElement("td");
+          const title = document.createElement("td");
+          const alert_score = document.createElement("td");
+          const energetic_score = document.createElement("td");
 
-        tableBody.appendChild(row);
-      }
+          rowNumber.textContent = (pageNumber - 1) * 30 + i + 1;
 
-      // Update the next page link based on the current page
-      const nextPageLink = data["hydra:view"]["hydra:next"];
-      const prevPageLink = data["hydra:view"]["hydra:previous"];
+          date.textContent = data["hydra:member"][i].date;
+          title.textContent = data["hydra:member"][i].title;
+          alert_score.textContent = data["hydra:member"][i].alert_score;
+          energetic_score.textContent = data["hydra:member"][i].energetic_score;
 
-      const nextPageButton = document.getElementById("nextPageButton");
-      if (nextPageLink) {
-        // nextPageButton.href = nextPageLink;
+          row.appendChild(rowNumber);
+          row.appendChild(date);
+          row.appendChild(title);
+          row.appendChild(alert_score);
+          row.appendChild(energetic_score);
+
+          tableBody.appendChild(row);
+        }
+
+        // Update the data-page attribute of next and previous buttons
         nextPageButton.dataset.page = pageNumber + 1;
-        nextPageButton.disabled = false;
-      } else {
-        nextPageButton.disabled = true;
-      }
-
-      const prevPageButton = document.getElementById("prevPageButton");
-      if (prevPageLink) {
         prevPageButton.dataset.page = pageNumber - 1;
-        prevPageButton.disabled = false;
-      } else {
-        prevPageButton.disabled = true;
-      }
-    });
-}
+      })
+      .catch((error) => {
+        console.log("Error loading table data:", error);
+      });
+  }
+
+  function loadChart(selectedDate) {
+    const chartCanvas = document.getElementById("chart");
+
+    // Destroy the previous chart if it exists
+    if (chart) {
+      chart.destroy();
+    }
+
+    fetch(
+      `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks_date_filter/${selectedDate}`
+    )
+      .then((response) => response.json())
+      .then((chartData) => {
+        const labels = [];
+        const alertData = [];
+        const energeticData = [];
+
+        for (let i = 0; i < chartData.length; i++) {
+          labels.push(chartData[i].date);
+          alertData.push(chartData[i].alert_score);
+          energeticData.push(chartData[i].energetic_score);
+        }
+
+        chart = new Chart(chartCanvas, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Alert Score",
+                data: alertData,
+                borderColor: "blue",
+              },
+              {
+                label: "Energetic Score",
+                data: energeticData,
+                borderColor: "green",
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: {
+                display: true,
+                title: {
+                  display: true,
+                  text: "Date",
+                },
+              },
+              y: {
+                display: true,
+                title: {
+                  display: true,
+                  text: "Energy and Alert Scores",
+                },
+              },
+            },
+            tooltips: {
+              enabled: true,
+              mode: "index",
+              intersect: false,
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              titleFontColor: "#ffffff",
+              bodyFontColor: "#ffffff",
+            },
+            legend: {
+              display: true,
+              position: "top",
+              labels: {
+                fontColor: "#000000",
+              },
+            },
+          },
+        });
+      })
+      .catch((error) => {
+        console.log("Error loading chart data:", error);
+      });
+  }
+});

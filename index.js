@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1; //to keep track of the current page number for pagination. It is initially set to 1, indicating the first page
-  let chart; // it is declared as a global variable outside the event listener function because we want to initialize the chart variable outside of any specific event and be able to access it in both the loadPage and loadChart functions
+  let totalPageCount = 0; //to store the total number of pages
+  let chart; //
 
   const nextPageButton = document.getElementById("nextPageButton");
   const prevPageButton = document.getElementById("prevPageButton");
@@ -10,8 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loadPage(currentPage);
 
   nextPageButton.addEventListener("click", () => {
-    currentPage++;
-    loadPage(currentPage);
+    if (currentPage < totalPageCount) {
+      currentPage++;
+      loadPage(currentPage);
+    }
   });
 
   prevPageButton.addEventListener("click", () => {
@@ -61,6 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
           tableBody.appendChild(row);
         }
 
+        // Calculate the total number of pages
+        totalPageCount = Math.ceil(data["hydra:totalItems"] / 30);
+
+        // Disable the next button if we are on the last page
+        if (currentPage === totalPageCount) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+
         // Update the data-page attribute of next and previous buttons
         nextPageButton.dataset.page = pageNumber + 1;
         prevPageButton.dataset.page = pageNumber - 1;
@@ -101,12 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
               {
                 label: "Alert Score",
                 data: alertData,
-                borderColor: "blue",
+                borderColor: "#cc5de8",
               },
               {
                 label: "Energetic Score",
                 data: energeticData,
-                borderColor: "green",
+                borderColor: "#5c7cfa",
               },
             ],
           },
@@ -125,6 +138,10 @@ document.addEventListener("DOMContentLoaded", () => {
                   display: true,
                   text: "Energy and Alert Scores",
                 },
+                suggestedMin: 0,
+                suggestedMax: 10,
+                stepSize: 1,
+                precision: 0,
               },
             },
             tooltips: {
@@ -139,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
               display: true,
               position: "top",
               labels: {
-                fontColor: "#000000",
+                fontColor: "#343a40",
               },
             },
           },

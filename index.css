@@ -76,7 +76,8 @@ thead > tr:hover {
   justify-content: center;
   gap: 20px;
 }
-.button {
+.button,
+.delete-button {
   border: none;
   background-color: #1098ad;
   color: #fff;
@@ -99,23 +100,28 @@ thead > tr:hover {
   background-color: #fff;
   transition: 0.2s;
 }
-#filter-div {
-  display: flex;
+.delete-button {
+  background-color: #fff;
+  color: #f03e3e;
+  border: 1px solid #f03e3e;
+  width: 70px;
+  height: 15px;
+  padding: 15px;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 20px;
-  margin: 1% 0 0 0;
+  justify-content: center;
 }
-#dateFilter {
-  background: transparent;
-  color: #1098ad;
-  border: none;
-  border-bottom: 2px solid #1098ad;
-  width: 10%;
-}
-input[type="date"] {
-  font-family: "Inter", sans-serif;
-  padding: 8px;
-  font-size: 16px;
+.delete-button:hover {
+  border: 1px solid #f03e3e;
+  color: #f03e3e;
   font-weight: bold;
+  background-color: #fff;
+  transition: 0.2s;
+}
+#successMessage {
+  display: none;
+  color: #37b24d;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 50px;
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charts</title>
+    <link href="charts.css" rel="stylesheet" />
+    <script src="charts.js" defer type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">ِDaily Chart</h1>
+
+      <div class="filter" id="filter-div">
+        <input type="date" id="dateFilter" />
+        <button class="button" id="filterButton">Filter</button>
+      </div>
+      <canvas id="chart"></canvas>
+    </div>
+  </body>
+</html>

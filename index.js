@@ -1,13 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let currentPage = 1; //to keep track of the current page number for pagination. It is initially set to 1, indicating the first page
-  let totalPageCount = 0; //to store the total number of pages
-  let chart; //
+  let currentPage = 1;
+  let totalPageCount = 0;
 
   const nextPageButton = document.getElementById("nextPageButton");
   const prevPageButton = document.getElementById("prevPageButton");
-  const filterButton = document.getElementById("filterButton");
+  const successMessage = document.getElementById("successMessage");
 
-  // Load the first page of data
   loadPage(currentPage);
 
   nextPageButton.addEventListener("click", () => {
@@ -24,14 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  filterButton.addEventListener("click", () => {
-    const selectedDate = document.getElementById("dateFilter").value;
-    loadChart(selectedDate);
-  });
-
   function loadPage(pageNumber) {
     const tableBody = document.getElementById("tableBody");
-    const chartCanvas = document.getElementById("chart");
 
     const tableUrl = `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks?page=${pageNumber}`;
 
@@ -47,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const title = document.createElement("td");
           const alert_score = document.createElement("td");
           const energetic_score = document.createElement("td");
+          const deleteButtonCell = document.createElement("td");
+          const deleteButton = document.createElement("button");
 
           rowNumber.textContent = (pageNumber - 1) * 30 + i + 1;
 
@@ -55,26 +49,37 @@ document.addEventListener("DOMContentLoaded", () => {
           alert_score.textContent = data["hydra:member"][i].alert_score;
           energetic_score.textContent = data["hydra:member"][i].energetic_score;
 
+          deleteButton.textContent = "Delete";
+          deleteButton.classList.add("delete-button");
+          deleteButton.addEventListener("click", () => {
+            const recordId = data["hydra:member"][i].id;
+            const confirmed = confirm(
+              "Are you sure you want to delete this record?"
+            );
+            if (confirmed) {
+              deleteRecord(recordId, row);
+            }
+          });
+
           row.appendChild(rowNumber);
           row.appendChild(date);
           row.appendChild(title);
           row.appendChild(alert_score);
           row.appendChild(energetic_score);
+          deleteButtonCell.appendChild(deleteButton);
+          row.appendChild(deleteButtonCell);
 
           tableBody.appendChild(row);
         }
 
-        // Calculate the total number of pages
         totalPageCount = Math.ceil(data["hydra:totalItems"] / 30);
 
-        // Disable the next button if we are on the last page
         if (currentPage === totalPageCount) {
           nextPageButton.disabled = true;
         } else {
           nextPageButton.disabled = false;
         }
 
-        // Update the data-page attribute of next and previous buttons
         nextPageButton.dataset.page = pageNumber + 1;
         prevPageButton.dataset.page = pageNumber - 1;
       })
@@ -83,87 +88,32 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  function loadChart(selectedDate) {
-    const chartCanvas = document.getElementById("chart");
+  function deleteRecord(recordId, row) {
+    const deleteUrl = `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks/${recordId}`;
 
-    // Destroy the previous chart if it exists
-    if (chart) {
-      chart.destroy();
-    }
-
-    fetch(
-      `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks_date_filter/${selectedDate}`
-    )
-      .then((response) => response.json())
-      .then((chartData) => {
-        const labels = [];
-        const alertData = [];
-        const energeticData = [];
-
-        for (let i = 0; i < chartData.length; i++) {
-          labels.push(chartData[i].date);
-          alertData.push(chartData[i].alert_score);
-          energeticData.push(chartData[i].energetic_score);
+    fetch(deleteUrl, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          row.remove();
+          showSuccessMessage("Your record is deleted successfully!");
+        } else {
+          throw new Error("Error deleting record");
         }
-
-        chart = new Chart(chartCanvas, {
-          type: "line",
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Alert Score",
-                data: alertData,
-                borderColor: "#cc5de8",
-              },
-              {
-                label: "Energetic Score",
-                data: energeticData,
-                borderColor: "#5c7cfa",
-              },
-            ],
-          },
-          options: {
-            scales: {
-              x: {
-                display: true,
-                title: {
-                  display: true,
-                  text: "Date",
-                },
-              },
-              y: {
-                display: true,
-                title: {
-                  display: true,
-                  text: "Energy and Alert Scores",
-                },
-                suggestedMin: 0,
-                suggestedMax: 10,
-                stepSize: 1,
-                precision: 0,
-              },
-            },
-            tooltips: {
-              enabled: true,
-              mode: "index",
-              intersect: false,
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              titleFontColor: "#ffffff",
-              bodyFontColor: "#ffffff",
-            },
-            legend: {
-              display: true,
-              position: "top",
-              labels: {
-                fontColor: "#343a40",
-              },
-            },
-          },
-        });
       })
       .catch((error) => {
-        console.log("Error loading chart data:", error);
+        console.log("Error deleting record:", error);
       });
+  }
+
+  function showSuccessMessage(message) {
+    successMessage.textContent = message;
+    successMessage.style.display = "block";
+
+    // Hide the success message after a certain duration
+    setTimeout(() => {
+      successMessage.style.display = "none";
+    }, 3000);
   }
 });

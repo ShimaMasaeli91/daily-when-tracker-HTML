@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tracker Records</title>
     <link href="index.css" rel="stylesheet" />
-    <script src="index.js" defer type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="index.js"></script>
   </head>
   <body>
     <!-- <header>Daily Records</header> -->
@@ -20,6 +19,7 @@
             <th>What am I doing</th>
             <th>How mentally alert do I feel?</th>
             <th>How energetic do I feel?</th>
+            <th>Delete Record</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -31,13 +31,7 @@
         <!-- <button class="button" id="currentPageButton">Current</button> -->
         <button class="button" id="nextPageButton" data-page="1">Next</button>
       </div>
-      <h1 class="title">ِDaily Chart</h1>
-
-      <div class="filter" id="filter-div">
-        <input type="date" id="dateFilter" />
-        <button class="button" id="filterButton">Filter</button>
-      </div>
-      <canvas id="chart"></canvas>
+      <div id="successMessage"></div>
     </div>
   </body>
 </html>

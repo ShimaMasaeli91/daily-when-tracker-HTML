@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link href="register.css" rel="stylesheet" />
+    <script src="login.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="main-header">Login</h1>
+      <form id="login-form">
+        <div>
+          <label class="label">Email</label>
+          <input
+            class="email-address"
+            type="text"
+            placeholder="Enter your Email address..."
+            name="email"
+            required
+          />
+        </div>
+        <div>
+          <label class="label">Password</label>
+          <input
+            class="password"
+            type="password"
+            placeholder="Enter your password..."
+            name="password"
+            required
+          />
+          <i class="fa fa-eye" id="eyeIcon"></i>
+        </div>
+        <button class="button" type="submit">Login</button>
+      </form>
+      <div class="success-message hidden" id="success-message">
+        You are logged in successfully.
+      </div>
+      <div class="failure-message hidden" id="failure-message">
+        Your email or password is wrong!
+      </div>
+    </div>
+  </body>
+</html>

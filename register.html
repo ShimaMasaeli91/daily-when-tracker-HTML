@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link href="register.css" rel="stylesheet" />
+    <script src="register.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="main-header">Registeration Form</h1>
+      <form id="register-form">
+        <div>
+          <label class="label">Email Address</label>
+          <input
+            class="email-address"
+            type="text"
+            placeholder="Enter your Email address..."
+            name="email"
+            required
+          />
+        </div>
+        <div>
+          <label class="label">Password</label>
+          <input
+            class="password"
+            type="text"
+            placeholder="Enter a password..."
+            name="password"
+            required
+          />
+          <i class="fa fa-eye" id="eyeIcon"></i>
+        </div>
+        <!-- <div>
+          <label class="label">Re-enter your Password</label>
+          <input
+            class="password"
+            type="text"
+            placeholder="Re-enter the password..."
+            name="password"
+            required
+          />
+          <i class="fa fa-eye" id="eyeIcon"></i>
+        </div> -->
+        <button class="button" type="submit">Submit</button>
+      </form>
+      <div class="success-message hidden" id="success-message">
+        You've registerd successfully!
+      </div>
+      <div class="failure-message hidden" id="failure-message"></div>
+      <div class="Unexpected-error hidden" id="Unexpected-error">
+        Something went wrong! Try again later.
+      </div>
+    </div>
+  </body>
+</html>

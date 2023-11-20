@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Retrieve the email from local storage
+  const storedEmail = localStorage.getItem("userEmail");
+  const token = localStorage.getItem("token");
+
+  // Update the HTML with the user's email
+  const welcomeElement = document.getElementById("welcome");
+  welcomeElement.textContent = `Welcome, ${storedEmail}`;
   let currentPage = 1;
   let totalPageCount = 0;
 
@@ -27,7 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const tableUrl = `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks?page=${pageNumber}`;
 
-    fetch(tableUrl)
+    fetch(tableUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/ld+json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         tableBody.innerHTML = "";
@@ -93,6 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(deleteUrl, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         if (response.ok) {
@@ -116,4 +132,9 @@ document.addEventListener("DOMContentLoaded", () => {
       successMessage.style.display = "none";
     }, 3000);
   }
+  document.getElementById("btn-logout").addEventListener("click", () => {
+    localStorage.removeItem("token"); // Remove token from local storage
+    localStorage.removeItem("userEmail");
+    window.location.href = "./login.html"; // Redirect to login page
+  });
 });

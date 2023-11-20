@@ -1,4 +1,12 @@
 const form = document.getElementById("create-form");
+// Retrieve the email from local storage
+const storedEmail = localStorage.getItem("userEmail");
+const token = localStorage.getItem("token");
+
+// Update the HTML with the user's email
+const welcomeElement = document.getElementById("welcome");
+welcomeElement.textContent = `Welcome, ${storedEmail}`;
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -14,30 +22,15 @@ form.addEventListener("submit", async (e) => {
   callCreateApi(stringObject);
 });
 
-// We check with required attributes
-/*
-function validateForm() {
-  // Check if all required form inputs are filled in.
-  const requiredInputs = form.querySelectorAll("input[required]");
-  for (const input of requiredInputs) {
-    if (input.value === "") {
-      return false;
-    }
-  }
-
-  // The form is valid.
-  return true;
-}
-*/
-
 async function callCreateApi(stringObject) {
   try {
     const response = await fetch(
       "https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks",
       {
-        method: "POST", // or 'PUT'
+        method: "POST",
         headers: {
           "Content-Type": "application/ld+json",
+          Authorization: `Bearer ${token}`,
         },
 
         body: stringObject,
@@ -63,6 +56,7 @@ async function callCreateApi(stringObject) {
       showAndHideMessage(failureMessageElement);
     }
   } catch (error) {
+    console.log(error);
     const unexpectedMessageElement =
       document.getElementById("unexpected-message");
     showAndHideMessage(unexpectedMessageElement);
@@ -78,3 +72,8 @@ function showAndHideMessage(element) {
 
   setTimeout(hideElement, 5000, element);
 }
+document.getElementById("btn-logout").addEventListener("click", () => {
+  localStorage.removeItem("token"); // Remove token from local storage
+  localStorage.removeItem("userEmail");
+  window.location.href = "./login.html"; // Redirect to login page
+});

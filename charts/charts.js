@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Retrieve the email from local storage
+  const storedEmail = localStorage.getItem("userEmail");
+  const token = localStorage.getItem("token");
+
+  // Update the HTML with the user's email
+  const welcomeElement = document.getElementById("welcome");
+  welcomeElement.textContent = `Welcome, ${storedEmail}`;
   let chart;
 
   const filterButton = document.getElementById("filterButton");
@@ -21,7 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     fetch(
-      `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks_date_filter/${selectedDate}`
+      `https://dev-api-when-time-tracker.iplugx.ir/api/time_tracks_date_filter/${selectedDate}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     )
       .then((response) => response.json())
       .then((chartData) => {
@@ -95,4 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Error loading chart data:", error);
       });
   }
+});
+document.getElementById("btn-logout").addEventListener("click", () => {
+  localStorage.removeItem("token"); // Remove token from local storage
+  localStorage.removeItem("userEmail");
+  window.location.href = "./login.html"; // Redirect to login page
 });

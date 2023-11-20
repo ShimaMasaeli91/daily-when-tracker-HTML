@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
 
-  loginForm.addEventListener("submit", async (event) => {
+  registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email = document.querySelector(".email-address").value;
-    const password = document.querySelector(".password").value;
+    const email = document.getElementById("email-address").value;
+    const password = document.getElementById("password").value;
 
     try {
       const response = await fetch(
-        "https://dev-api-when-time-tracker.iplugx.ir/api/auth/login",
+        "https://dev-api-when-time-tracker.iplugx.ir/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -20,23 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       );
 
-      // Check if the login was successful
+      // Check if the registration was successful
       if (response.ok) {
         const data = await response.json();
 
-        const token = data.token;
-        console.log(token);
-
-        // Store the token in local storage
-        localStorage.setItem("token", token);
-
-        // Display the success message for 5 seconds then redirect to dashboard
         const successMessageElement =
           document.getElementById("success-message");
         showAndHideMessage(successMessageElement);
-
         setTimeout(() => {
-          window.location.href = "./dashboard.html";
+          window.location.href = "./login.html";
         }, 3000);
       } else {
         const result = await response.json();
@@ -50,9 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.log(error);
-      failureMessage.textContent =
-        "Something went wrong. Please try again later.";
-      failureMessage.classList.remove("hidden");
     }
   });
 
@@ -60,6 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
     element.classList.remove("hidden");
     setTimeout(() => {
       element.classList.add("hidden");
-    }, 2000);
+    }, 4000);
   }
+  document.getElementById("btn-login").addEventListener("click", () => {
+    localStorage.removeItem("token"); // Remove token from local storage
+    localStorage.removeItem("userEmail");
+    window.location.href = "./login.html"; // Redirect to login page
+  });
 });

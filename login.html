@@ -4,17 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link href="register.css" rel="stylesheet" />
-    <script src="login.js"></script>
+    <link href="./register/register.css" rel="stylesheet" />
+    <script src="./login/login.js"></script>
   </head>
   <body>
+    <nav>
+      <ul>
+        <li><button id="btn-register">Not Registered yet?</button></li>
+      </ul>
+    </nav>
     <div class="container">
       <h1 class="main-header">Login</h1>
       <form id="login-form">
         <div>
           <label class="label">Email</label>
           <input
-            class="email-address"
+            id="email-address"
             type="text"
             placeholder="Enter your Email address..."
             name="email"
@@ -24,7 +29,7 @@
         <div>
           <label class="label">Password</label>
           <input
-            class="password"
+            id="password"
             type="password"
             placeholder="Enter your password..."
             name="password"

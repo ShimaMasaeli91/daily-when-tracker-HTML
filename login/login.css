@@ -1,5 +1,6 @@
 /* General styling */
-* {
+*,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,8 +11,8 @@ body {
   background-color: #f2f2f2;
 }
 
-/* Navigation bar */
-nav {
+/* Navigation bar styling */
+.navbar {
   background-color: #1098ad;
   height: 80px;
   display: flex;
@@ -20,14 +21,15 @@ nav {
   padding: 0 20px;
 }
 
-nav ul {
+.navbar-list {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-#btn-login {
+/* Register button styling */
+.register-btn {
   background-color: #1098ad;
   color: #fff;
   padding: 20px 30px;
@@ -37,11 +39,11 @@ nav ul {
   transition: background-color 0.2s ease-in-out;
 }
 
-#btn-login:hover {
+.register-btn:hover {
   background-color: #0f879a;
 }
 
-/* Registration form container */
+/* Login form container styling */
 .container {
   width: 400px;
   max-width: 100%;
@@ -51,14 +53,18 @@ nav ul {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive adjustments for the container */
+.hidden {
+  display: none;
+}
+
+/* Media query for adjusting container width on small screens */
 @media (max-width: 768px) {
   .container {
     width: 80%;
   }
 }
 
-/* Main header */
+/* Main heading styling */
 .main-header {
   text-align: center;
   margin-bottom: 20px;
@@ -69,7 +75,7 @@ nav ul {
   margin-bottom: 10px;
 }
 
-/* Responsive adjustments for form elements */
+/* Media query for adjusting form group margin on medium screens */
 @media (min-width: 769px) {
   .form-group {
     margin-bottom: 20px;
@@ -77,27 +83,27 @@ nav ul {
 }
 
 /* Label styling */
-label {
+.label {
   display: block;
   margin-bottom: 5px;
 }
 
 /* Input field styling */
-input {
+.login-form input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
 }
 
-/* Responsive adjustments for input fields */
+/* Media query for adjusting input field padding on medium screens */
 @media (min-width: 769px) {
-  input {
+  .login-form input {
     padding: 12px;
   }
 }
 
-/* Button styling */
-.button {
+/* Login button styling */
+.login-btn {
   background-color: #1098ad;
   color: #fff;
   padding: 10px 20px;
@@ -106,13 +112,13 @@ input {
   transition: background-color 0.2s ease-in-out;
 }
 
-.button:hover {
+.login-btn:hover {
   background-color: #0f879a;
 }
 
-/* Responsive adjustments for buttons */
+/* Media query for adjusting button padding on medium screens */
 @media (min-width: 769px) {
-  .button {
+  .login-btn {
     padding: 15px 30px;
   }
 }
@@ -134,6 +140,7 @@ input {
 }
 
 /* Error message styling */
-.error {
+.error,
+.unexpected {
   background-color: #f8f1f1;
 }

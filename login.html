@@ -4,29 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link href="./register/register.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./login/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./lib/common.js"></script>
     <script src="./login/login.js"></script>
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><button id="btn-register">Not Registered yet?</button></li>
+    <nav class="navbar">
+      <ul class="navbar-list">
+        <li>
+          <button id="btn-register" class="register-btn">
+            Not Registered yet?
+          </button>
+        </li>
       </ul>
     </nav>
+
     <div class="container">
       <h1 class="main-header">Login</h1>
-      <form id="login-form">
-        <div>
+
+      <form id="login-form" class="login-form">
+        <div class="form-group">
           <label class="label">Email</label>
           <input
             id="email-address"
-            type="text"
+            type="email"
             placeholder="Enter your Email address..."
             name="email"
             required
           />
         </div>
-        <div>
+
+        <div class="form-group">
           <label class="label">Password</label>
           <input
             id="password"
@@ -35,16 +49,18 @@
             name="password"
             required
           />
-          <i class="fa fa-eye" id="eyeIcon"></i>
         </div>
-        <button class="button" type="submit">Login</button>
+
+        <button class="button login-btn" type="submit">Login</button>
       </form>
-      <div class="success-message hidden" id="success-message">
+
+      <div id="success-message" class="success message hidden">
         You are logged in successfully.
       </div>
-      <div class="failure-message hidden" id="failure-message">
-        Your email or password is wrong!
-      </div>
+
+      <div id="failure-message" class="error message hidden"></div>
+
+      <div id="unexpected-error" class="unexpected message hidden"></div>
     </div>
   </body>
 </html>

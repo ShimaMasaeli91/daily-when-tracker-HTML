@@ -13,34 +13,49 @@ body {
 /* Navigation bar */
 nav {
   background-color: #1098ad;
-  height: 80px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
 }
-
-nav ul {
-  list-style: none;
+nav > ul {
   display: flex;
   align-items: center;
+  list-style: none;
   gap: 20px;
 }
-
+nav li {
+  font-size: 14px;
+}
+nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 7px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 4px;
+}
+nav a:hover {
+  transition: color 0.2s ease-in-out;
+  background-color: #0f879a;
+}
+nav > ul > li:last-child {
+  margin-left: auto;
+}
 #btn-login {
   background-color: #1098ad;
-  color: #fff;
-  padding: 20px 30px;
-  font-size: 1rem;
   border: none;
+  color: #fff;
+  font-size: 14px;
   cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
 }
-
 #btn-login:hover {
   background-color: #0f879a;
 }
-
 /* Registration form container */
 .container {
   width: 400px;
@@ -130,10 +145,12 @@ input {
 
 /* Success message styling */
 .success {
+  color: #28a745;
   background-color: #f0f8ee;
 }
 
 /* Error message styling */
 .error {
+  color: #dc3545;
   background-color: #f8f1f1;
 }

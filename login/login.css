@@ -136,11 +136,13 @@ body {
 
 /* Success message styling */
 .success {
+  color: #28a745;
   background-color: #f0f8ee;
 }
 
 /* Error message styling */
 .error,
 .unexpected {
+  color: #dc3545;
   background-color: #f8f1f1;
 }

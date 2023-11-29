@@ -70,7 +70,7 @@ function hideElement(element) {
 function showAndHideMessage(element) {
   element.classList.remove("hidden");
 
-  setTimeout(hideElement, 5000, element);
+  setTimeout(hideElement, 3000, element);
 }
 document.getElementById("btn-logout").addEventListener("click", () => {
   localStorage.removeItem("token"); // Remove token from local storage

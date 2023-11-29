@@ -156,6 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const energetic_score = document.createElement("td");
           const deleteButtonCell = document.createElement("td");
           const deleteButton = document.createElement("button");
+          const updateButtonCell = document.createElement("td");
+          const updateButton = document.createElement("button");
 
           rowNumber.textContent = (pageNumber - 1) * 30 + i + 1;
 
@@ -176,6 +178,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
 
+          updateButton.textContent = "Update";
+          updateButton.classList.add("update-button");
+          updateButton.addEventListener("click", function () {
+            const recordId = data["hydra:member"][i].id;
+            localStorage.setItem("recordId", recordId);
+            localStorage.setItem("title", title.textContent);
+            localStorage.setItem("alert_score", alert_score.textContent);
+            localStorage.setItem(
+              "energetic_score",
+              energetic_score.textContent
+            );
+            window.location.href = "./update.html";
+            return recordId;
+          });
+
           row.appendChild(rowNumber);
           row.appendChild(date);
           row.appendChild(title);
@@ -183,6 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
           row.appendChild(energetic_score);
           deleteButtonCell.appendChild(deleteButton);
           row.appendChild(deleteButtonCell);
+          updateButtonCell.appendChild(updateButton);
+          row.appendChild(updateButtonCell);
 
           tableBody.appendChild(row);
         }

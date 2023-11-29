@@ -13,7 +13,7 @@
         <li id="welcome">Welcome</li>
         <li><a href="./create.html">Create a New Record</a></li>
         <li><a href="./charts.html">My Charts</a></li>
-        <li><button id="btn-logout">Logout</button></li>
+        <li id="last-child"><button id="btn-logout">Logout</button></li>
       </ul>
     </nav>
     <div class="container">
@@ -27,6 +27,7 @@
             <th>How mentally alert do I feel?</th>
             <th>How energetic do I feel?</th>
             <th>Delete Record</th>
+            <th>Update Record</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -35,10 +36,9 @@
         <button class="button" id="prevPageButton" data-page="1">
           Previous
         </button>
-        <!-- <button class="button" id="currentPageButton">Current</button> -->
         <button class="button" id="nextPageButton" data-page="1">Next</button>
       </div>
-      <div id="successMessage"></div>
+      <div class="message success hidden" id="successMessage"></div>
     </div>
   </body>
 </html>

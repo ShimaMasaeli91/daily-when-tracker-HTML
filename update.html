@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily When Tracker</title>
-    <link href="./create/create.css" rel="stylesheet" />
-    <script src="./create/create.js" defer></script>
+    <link href="./update/update.css" rel="stylesheet" />
+    <script src="./update/update.js" defer></script>
   </head>
   <body>
     <nav>
@@ -18,21 +18,22 @@
     </nav>
 
     <div class="container">
-      <h1 class="main-header">DAILY WHEN TRACKER</h1>
-      <form id="create-form">
-        <div class="form-group">
+      <h1 class="main-header">Update Your Record</h1>
+      <form id="update-form">
+        <div>
           <label class="label">What am I doing?</label>
           <input
+            id="titleInput"
             class="first-input"
             type="text"
             placeholder="type here..."
             name="title"
           />
         </div>
-        <div class="form-group">
+        <div>
           <label class="label">How mentally alert do I feel?</label>
-          <select name="alertScore" required>
-            <option value="" selected>Select an option</option>
+          <select id="alertSelect" name="alertScore" required>
+            <option value="">Select an option</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -45,10 +46,10 @@
             <option value="10">10</option>
           </select>
         </div>
-        <div class="form-group">
+        <div>
           <label class="label">How energetic do I feel?</label>
-          <select name="energeticScore" required>
-            <option value="" selected>Select an option</option>
+          <select id="energeticSelect" name="energeticScore" required>
+            <option value="">Select an option</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -61,18 +62,13 @@
             <option value="10">10</option>
           </select>
         </div>
-        <button class="button" type="submit">Submit</button>
+        <button class="button" type="submit">Update</button>
       </form>
-      <div class="message success hidden" id="success-message">
-        Record submitted successfully!
+      <div class="success-message hidden" id="success-message">
+        Record is updated successfully!
       </div>
-      <div class="message error hidden" id="unexpected-message">
-        An unexpected error occurred.
-      </div>
-      <!-- TODO: Validation Error -->
-      <div class="message error hidden" id="failure-message">
-        Record submission failed. Please fill all required fields.
-      </div>
+      <div class="unexpected-error hidden" id="unexpected-message"></div>
+      <div class="failure-message hidden" id="failure-message"></div>
     </div>
   </body>
 </html>
